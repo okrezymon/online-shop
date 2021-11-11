@@ -5,8 +5,7 @@
 
 
 # Ignore everything in the root except modules, themes and override.
-/*
-var/
+var/*
 
 
 # Not ignore .gitignore
