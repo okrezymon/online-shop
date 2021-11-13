@@ -109,7 +109,7 @@ def _download_product_details(
 
 
 def _save_df_to_csv(df: pd.DataFrame, file_name: str):
-    df.to_csv(f"{file_name}.csv", sep="\t", encoding="utf-8")
+    df.to_csv(f"{file_name}.csv", sep=";", encoding="utf-8")
 
 
 if __name__ == "__main__":
@@ -121,7 +121,8 @@ if __name__ == "__main__":
             "price",
             "level",
             "img_alt",
-            "img_url" "product_quantity",
+            "img_url",
+            "product_quantity",
             "product_details",
         ]
     )
