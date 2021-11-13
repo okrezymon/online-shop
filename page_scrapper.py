@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+PRODUCT_QUANTITY = 1000
+
 
 def _get_product_categories() -> List[str]:
     categories = []
@@ -36,6 +38,7 @@ def _download_image(img_tag):
 
 
 def _get_product_details(soup, category, products_df):
+    category = category.replace("_", " ").upper()
     site_container = soup.find("div", {"class": "js-mobile-site-container"})
     l_container = site_container.find("div", {"class": "l-container u-mb-45"})
     product_list = l_container.find("div", {"class": "b-product-list"})
@@ -67,8 +70,10 @@ def _get_product_details(soup, category, products_df):
                         for s in training_materials_count_txt.split()
                         if s.isdigit()
                     ][0]
+                    product_details = f"{training_materials_count} materiałów treningowych i {lectures_count} wykładów."
                     img_tag = my_div.find("img")
-                    _download_image(img_tag)
+                    img_src = img_tag["data-src"]
+                    # _download_image(img_tag)
                     img_alt = img_tag["alt"]
                     product_details = {
                         "category": category,
@@ -76,11 +81,14 @@ def _get_product_details(soup, category, products_df):
                         "description": description,
                         "price": price,
                         "level": level,
-                        "lectures_count": lectures_count,
-                        "training_materials_count": training_materials_count,
                         "img_alt": img_alt,
+                        "img_src": img_src,
+                        "product_quantity": PRODUCT_QUANTITY,
+                        "product_details": product_details,
                     }
-                    products_df = products_df.append(product_details, ignore_index=True, )
+                    products_df = products_df.append(
+                        product_details, ignore_index=True,
+                    )
                 except Exception as e:
                     print(e)
     return products_df
@@ -112,9 +120,9 @@ if __name__ == "__main__":
             "description",
             "price",
             "level",
-            "lectures_count",
-            "training_materials_count",
             "img_alt",
+            "img_url" "product_quantity",
+            "product_details",
         ]
     )
     categories = _get_product_categories()
