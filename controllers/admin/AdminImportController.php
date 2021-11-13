@@ -337,6 +337,7 @@ class AdminImportControllerCore extends AdminController
                         'help' => $this->trans('ID of the warehouse to set as storage.', [], 'Admin.Advparameters.Help'),
                     ],
                     'accessories' => ['label' => $this->trans('Accessories (x,y,z...)', [], 'Admin.Advparameters.Feature')],
+                    '' => ['label' => $this->trans('Test', [], 'Admin.Advparameters.Feature')],
                 ];
 
                 self::$default_values = [
