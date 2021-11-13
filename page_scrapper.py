@@ -35,10 +35,10 @@ def _download_image(img_tag):
         handler.write(img_data)
 
 
-def _get_product_details(soup, category):
+def _get_product_details(soup, category, products_df):
     site_container = soup.find("div", {"class": "js-mobile-site-container"})
     l_container = site_container.find("div", {"class": "l-container u-mb-45"})
-    product_list = l_container.find_all("div", {"class": "b-product-list"})
+    product_list = l_container.find("div", {"class": "b-product-list"})
     for product_box in product_list.find_all("div", {"class": "b-product-box desktop"}):
         for a_div in product_box.find_all("a", href=True):
             if a_div.contents[1] is not None:
@@ -80,9 +80,10 @@ def _get_product_details(soup, category):
                         "training_materials_count": training_materials_count,
                         "img_alt": img_alt,
                     }
+                    products_df = products_df.append(product_details, ignore_index=True, )
                 except Exception as e:
                     print(e)
-    return product_details
+    return products_df
 
 
 def _download_product_details(
@@ -92,10 +93,10 @@ def _download_product_details(
         for i in range(0, 9):
             url = _get_category_url(category=category, page_no=i)
             page = requests.get(url)
-            assert page.status_code == 200
+            if page.status_code != 200:
+                continue
             soup = BeautifulSoup(page.content, "html.parser")
-            product_details = _get_product_details(soup, category)
-            products_df = products_df.append(product_details, ignore_index=True,)
+            products_df = _get_product_details(soup, category, products_df)
     return products_df
 
 
