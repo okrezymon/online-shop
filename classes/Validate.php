@@ -200,7 +200,7 @@ class ValidateCore
     public static function isName($name)
     {
         $validityPattern = Tools::cleanNonUnicodeSupport(
-            '/^[^0-9!<>,;?=+()@#"°{}_$%:¤|]*$/u'
+            '/^[^0-9!<>,;?=+()@"°{}_$%:¤|]*$/u'
         );
 
         return preg_match($validityPattern, $name);
@@ -362,7 +362,7 @@ class ValidateCore
      */
     public static function isCatalogName($name)
     {
-        return preg_match(Tools::cleanNonUnicodeSupport('/^[^<>;=#{}]*$/u'), $name);
+        return preg_match(Tools::cleanNonUnicodeSupport('/^[^<>;={}]*$/u'), $name);
     }
 
     /**

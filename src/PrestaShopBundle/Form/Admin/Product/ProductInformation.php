@@ -221,7 +221,7 @@ class ProductInformation extends CommonAbstractType
                 'options' => [
                     'constraints' => [
                         new Assert\Regex([
-                            'pattern' => '/[<>;=#{}]/',
+                            'pattern' => '/[<>;={}]/',
                             'match' => false,
                         ]),
                         new Assert\NotBlank(),

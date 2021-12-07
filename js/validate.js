@@ -89,7 +89,7 @@ function validate_isCustomerName(s)
 
 function validate_isName(s)
 {
-	var reg = /^[^0-9!<>,;?=+()@#"°\{\}_$%:]+$/;
+	var reg = /^[^0-9!<>,;?=+()@"°\{\}_$%:]+$/;
 	return reg.test(s);
 }
 
