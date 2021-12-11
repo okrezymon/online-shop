@@ -6,14 +6,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import time
 
-driver = webdriver.Chrome(r"")
+options = webdriver.ChromeOptions()
+options.add_argument('ignore-certificate-errors')
+
+driver = webdriver.Chrome(executable_path=r'C:\Users\okrez\PycharmProjects\seleniumTest\main\chromedriver\chromedriver.exe', chrome_options=options)
 actions = webdriver.ActionChains(driver)
+
 
 def i_go_to_main_page():
     driver.maximize_window()
-    driver.get("https://127.0.0.1/kursy-online")
+    driver.get("http://127.0.0.1/kursy-online")
     assert "kursy-online" in driver.title
-    actions.pause(1).perform()
+
 
 
 def i_choose_product_by_clicking_on_image(course_name):
@@ -292,6 +296,6 @@ try:
     selenium_test()
 except Exception as e:
     print(str(e))
+    print("Test failure")
 finally:
     driver.close()
-    print("Test failure")
