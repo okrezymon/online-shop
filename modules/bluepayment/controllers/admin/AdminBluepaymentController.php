@@ -48,7 +48,8 @@ class AdminBluepaymentController extends ModuleAdminController
             ]);
         } else {
             Tools::redirectAdmin(
-                $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name . '&token=' . Tools::getAdminTokenLite('AdminModules')
+                $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name .
+                '&token=' . Tools::getAdminTokenLite('AdminModules')
             );
         }
     }
@@ -58,18 +59,18 @@ class AdminBluepaymentController extends ModuleAdminController
     {
 
         $this->fields_form = [
-            'input'  => [
+            'input' => [
                 [
-                    'type'  => 'text',
+                    'type' => 'text',
                     'label' => $this->l('Gateway Name'),
-                    'name'  => 'gateway_name',
-                    'rows'  => 5,
-                    'cols'  => 100,
+                    'name' => 'gateway_name',
+                    'rows' => 5,
+                    'cols' => 100,
                 ],
             ],
             'submit' => [
                 'title' => $this->trans('Save', [], 'Admin.Actions'),
-                'name'  => 'submitGateway',
+                'name' => 'submitGateway',
             ],
         ];
 
@@ -78,15 +79,13 @@ class AdminBluepaymentController extends ModuleAdminController
     }
 
 
-
-
     public function ajaxProcessGatewayStatusBlueGateways()
     {
         if (!$gateway_id = (int)Tools::getValue('id')) {
             die(json_encode([
                 'success' => false,
-                'error'   => true,
-                'text'    => $this->l('Failed to update the status'),
+                'error' => true,
+                'text' => $this->l('Failed to update the status'),
             ]));
         }
 
@@ -97,18 +96,16 @@ class AdminBluepaymentController extends ModuleAdminController
                 ?
                 die(json_encode([
                     'success' => true,
-                    'text'    => $this->l('The status has been updated successfully'),
+                    'text' => $this->l('The status has been updated successfully'),
                 ]))
                 :
                 die(json_encode([
                     'success' => false,
-                    'error'   => true,
-                    'text'    => $this->l('Failed to update the status'),
+                    'error' => true,
+                    'text' => $this->l('Failed to update the status'),
                 ]));
         }
     }
-
-
 
 
     public function initToolBarTitle()

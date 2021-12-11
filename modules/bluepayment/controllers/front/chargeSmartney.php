@@ -55,10 +55,8 @@ class BluePaymentChargeSmartneyModuleFrontController extends ModuleFrontControll
                 if (!Validate::isLoadedObject($cart) || (int) $this->context->cart->id != $cart->id) {
                     throw new OrderException('Invalid cart provided.');
                 }
-
             }
         }
-
         if ($cart->id_customer === 0 ||
             $cart->id_address_delivery === 0 ||
             $cart->id_address_invoice === 0 ||

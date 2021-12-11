@@ -54,7 +54,6 @@ class BluePaymentChargeGPayModuleFrontController extends ModuleFrontController
                 if (!Validate::isLoadedObject($cart) || (int) $this->context->cart->id != $cart->id) {
                     throw new OrderException('Invalid cart provided.');
                 }
-
             }
         }
 

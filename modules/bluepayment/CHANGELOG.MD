@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.6.7] 15.11.2021
+- Payment return communication added
+- Changing the name of the module
+
 ## [2.6.6] 27.09.2021
 - The security of the module has been improved
 
@@ -15,7 +19,7 @@
 - Improved payment status 
 
 ## [2.6.2] 19.08.2021
-- Added composer
+- Using composer package manager for better organization
 - Add autoloader class
 - Fixed ITN problem  
 - Fixed payment buttons language
