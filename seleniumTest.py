@@ -5,11 +5,17 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import time
+from selenium.webdriver.chrome.options import Options
 
-options = webdriver.ChromeOptions()
-options.add_argument('ignore-certificate-errors')
 
-driver = webdriver.Chrome(executable_path=r'C:\Users\okrez\PycharmProjects\seleniumTest\main\chromedriver\chromedriver.exe', chrome_options=options)
+#ChromeOptions = webdriver.ChromeOptions()
+chrome_options = Options()
+chrome_options.add_argument('--no-sandbox')
+#chrome_options.add_argument('--headless')
+#chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('ignore-certificate-errors')
+
+driver = webdriver.Chrome(executable_path=r'/opt/chromedriver_linux64/chromedriver', chrome_options=chrome_options)
 actions = webdriver.ActionChains(driver)
 
 
@@ -211,7 +217,7 @@ def i_go_to_transaction_history():
 def i_check_a_delivery_status(order_id):
     status_xpath = "//table/tbody/tr[th[.='${order_id}']]/td[count(//table/thead/tr/th[.='Wyświetlany']/preceding-sibling::th)]"
     status = driver.find_element(By.XPATH, status_xpath.replace("${order_id}", order_id)).text
-    assert status.strip() == "Przygotowanie w toku"
+    assert status.strip() == "Oczekiwanie na płatność przelewem"
     actions.pause(1).perform()
 
 
@@ -279,7 +285,7 @@ def selenium_test():
     i_click_continue_button_on_form(delivery_form)
     i_check_cart_totals()
     # filling payment form
-    i_choose_payment_option_to("Zapłać gotówką przy odbiorze")
+    i_choose_payment_option_to("Zapłać przelewem")
     # confirm terms and conditions
     i_confirm_terms_and_conditions()
     # confirm payment
