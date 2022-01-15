@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  new_prestashop:
+    build: .
+    ports:
+      - "58817:443"
+    depends_on:
+      - mysql-prestashop
+    links:
+      - "mysql-prestashop"
+
+  mysql-prestashop:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=student
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8070:80"
+    env_file:
+      - .env
+    environment:
+      PMA_HOST: mysql-prestashop
+      VIRTUAL_HOST: phpmyadmin.test
+
